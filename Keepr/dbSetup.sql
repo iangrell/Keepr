@@ -25,6 +25,21 @@ CREATE TABLE
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8mb4 COMMENT '';
 
+INSERT INTO
+    keeps(
+        name,
+        description,
+        img,
+        creatorId
+    )
+VALUES
+(
+        'Bourbon',
+        'Woodford',
+        'https://images.unsplash.com/photo-1608471250290-f7d6b569ff46?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
+        '642caa25c178a672b1f898d2'
+    );
+
 -- SECTION VAULTS
 
 CREATE TABLE
