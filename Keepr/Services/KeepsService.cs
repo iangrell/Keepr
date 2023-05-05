@@ -41,4 +41,15 @@ public class KeepsService
         if (keep == null) throw new Exception("No Keep found with that ID.");
         return keep;
     }
+
+    internal string Remove(int keepId, string userId)
+    {
+        Keep keep = GetOne(keepId);
+        if (keep.CreatorId != userId)
+        {
+            throw new Exception("Something went wrong.");
+        }
+        _repo.Remove(keepId);
+        return "Keep deleted.";
+    }
 }

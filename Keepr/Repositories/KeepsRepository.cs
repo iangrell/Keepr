@@ -78,4 +78,10 @@ public class KeepsRepository
         }).ToList();
         return keeps;
     }
+
+    internal void Remove(int keepId)
+    {
+        string sql = "DELETE FROM keeps WHERE id = @keepId LIMIT 1;";
+        _db.Execute(sql, new { keepId });
+    }
 }
