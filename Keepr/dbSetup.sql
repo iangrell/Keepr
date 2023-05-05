@@ -8,6 +8,8 @@ CREATE TABLE
         picture varchar(255) COMMENT 'User Picture'
     ) default charset utf8mb4 COMMENT '';
 
+ALTER TABLE accounts ADD COLUMN coverImg INT;
+
 -- SECTION KEEPS
 
 CREATE TABLE
