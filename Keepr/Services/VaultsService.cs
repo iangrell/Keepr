@@ -11,9 +11,10 @@ public class VaultsService
 
     internal Vault CreateVault(Vault vaultData)
     {
-        int id = _repo.CreateVault(vaultData);
-        vaultData.Id = id;
-        return vaultData;
+        int vaultId = _repo.CreateVault(vaultData);
+        vaultData.Id = vaultId;
+        Vault vault = this.GetOne(vaultId, vaultData.CreatorId);
+        return vault;
     }
 
     internal Vault EditVault(Vault vaultData)
@@ -51,5 +52,16 @@ public class VaultsService
         }
 
         return vault;
+    }
+
+    internal string Remove(int vaultId, string userId)
+    {
+        Vault vault = GetOne(vaultId, userId);
+        if (vault.CreatorId != userId)
+        {
+            throw new Exception("Something went wrong.");
+        }
+        _repo.Remove(vaultId);
+        return "Vault deleted.";
     }
 }

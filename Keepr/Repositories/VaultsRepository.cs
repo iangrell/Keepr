@@ -62,4 +62,10 @@ public class VaultsRepository
         }, new { vaultId }).FirstOrDefault();
         return vault;
     }
+
+    internal void Remove(int vaultId)
+    {
+        string sql = "DELETE FROM vaults WHERE id = @vaultId LIMIT 1";
+        _db.Execute(sql, new { vaultId });
+    }
 }
