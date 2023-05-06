@@ -12,4 +12,54 @@ public class VaultsController : ControllerBase
         _vaultsService = vaultsService;
         _auth = auth;
     }
+
+    [HttpGet("{vaultId}")]
+    public async Task<ActionResult<Vault>> GetOne(int vaultId)
+    {
+        try
+        {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            Vault vault = _vaultsService.GetOne(vaultId, userInfo?.Id);
+            return Ok(vault);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<ActionResult<Vault>> CreateVault([FromBody] Vault vaultData)
+    {
+        try
+        {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            vaultData.CreatorId = userInfo.Id;
+            Vault vault = _vaultsService.CreateVault(vaultData);
+            return Ok(vault);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpPut("{vaultId}")]
+    [Authorize]
+    public async Task<ActionResult<Vault>> EditVault(int vaultId, [FromBody] Vault vaultData)
+    {
+        try
+        {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            vaultData.Id = vaultId;
+            vaultData.CreatorId = userInfo.Id;
+            Vault vault = _vaultsService.EditVault(vaultData);
+            return Ok(vault);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

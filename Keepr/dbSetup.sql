@@ -8,7 +8,7 @@ CREATE TABLE
         picture varchar(255) COMMENT 'User Picture'
     ) default charset utf8mb4 COMMENT '';
 
-ALTER TABLE accounts ADD COLUMN coverImg INT;
+ALTER TABLE accounts ADD COLUMN coverImg VARCHAR(255);
 
 -- SECTION KEEPS
 
@@ -25,6 +25,8 @@ CREATE TABLE
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8mb4 COMMENT '';
 
+ALTER TABLE keeps ADD COLUMN kept INT NOT NULL DEFAULT 0;
+
 INSERT INTO
     keeps(
         name,
@@ -32,8 +34,7 @@ INSERT INTO
         img,
         creatorId
     )
-VALUES
-(
+VALUES (
         'Bourbon',
         'Woodford',
         'https://images.unsplash.com/photo-1608471250290-f7d6b569ff46?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
