@@ -1,44 +1,66 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      >
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <div class="container-fluid">
+    <div class="row">
+      <div v-for="k in keeps" :key="k.id" @click="getKeepById(k.id)" data-bs-toggle="modal" data-bs-target="#keep-details"
+        class=" col-6 col-md-3 mb-3">
+        <KeepCard :keep="k" />
+      </div>
     </div>
   </div>
+
+  <Modal id="keep-details" size="xl">
+
+    <template #header>
+      <h5 class="text-dark"></h5>
+    </template>
+
+    <template #modalBody>
+      <KeepDetails />
+    </template>
+
+  </Modal>
 </template>
 
 <script>
+import { computed, onMounted } from 'vue';
+import Pop from '../utils/Pop.js';
+import { keepsService } from '../services/KeepsService.js'
+import { AppState } from '../AppState.js';
+import KeepCard from '../components/KeepCard.vue';
+import KeepDetails from '../components/KeepDetails.vue';
+import { logger } from '../utils/Logger.js';
+
 export default {
   setup() {
-    return {}
-  }
+    onMounted(() => {
+      getKeeps();
+    });
+
+    async function getKeeps() {
+      try {
+        await keepsService.getKeeps();
+      }
+      catch (error) {
+        Pop.error(error);
+      }
+    }
+
+    return {
+      keeps: computed(() => AppState.keeps),
+      account: computed(() => AppState.account),
+      activeKeep: computed(() => AppState.activeKeep),
+
+      async getKeepById(keepId) {
+        try {
+          await keepsService.getKeepById(keepId)
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
+    };
+  },
+  components: { KeepCard, KeepDetails }
 }
 </script>
 
-<style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-
-  .home-card {
-    width: 50vw;
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>
