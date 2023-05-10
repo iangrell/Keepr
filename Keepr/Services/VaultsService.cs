@@ -38,6 +38,12 @@ public class VaultsService
 
     }
 
+    internal List<Vault> GetMyVaults(string userId)
+    {
+        List<Vault> vaults = _repo.GetMyVaults(userId);
+        return vaults;
+    }
+
     internal Vault GetOne(int vaultId, string userId)
     {
         Vault vault = _repo.GetOne(vaultId);

@@ -1,11 +1,10 @@
 <template>
     <div class="row selectable elevation-5 p-2 m-1">
         <div class="col-12 mb-1">
-            <img :src="keep.img" :alt="keep.name">
+            <img :src="keptKeep?.img" :alt="keptKeep?.name">
         </div>
         <div class="col-12 d-flex justify-content-between">
-            <h3>{{ keep.name }}</h3>
-            <img class="profile-pic" :src="keep.creator.picture" :alt="keep.name">
+            <h3>{{ keptKeep?.name }}</h3>
         </div>
     </div>
 </template>
@@ -14,10 +13,10 @@
 <script>
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
-import { Keep } from '../models/Keep.js';
+import { KeptKeep } from '../models/KeptKeep.js';
 export default {
     props: {
-        keep: { type: Keep, required: true}
+        keptKeep: { type: KeptKeep, required: true}
     },
 
     setup(){
@@ -34,12 +33,6 @@ img {
     width: 100%;
     object-fit: cover;
     object-position: center;
-}
-
-.profile-pic {
-    height: 4vh;
-    width: 4vh;
-    border-radius: 50%;
 }
 
 </style>

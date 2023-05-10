@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="CreateKeep">
+    <form @submit.prevent="createKeep">
         <div class="mb-3">
             <label for="" class="form-label">Name</label>
             <input v-model="editable.name" type="text" class="form-control" aria-describedby="helpId">
