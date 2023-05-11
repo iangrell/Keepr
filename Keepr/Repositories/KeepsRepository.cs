@@ -79,6 +79,25 @@ public class KeepsRepository
         return keeps;
     }
 
+    internal List<Keep> GetProfileKeeps(string profileId)
+    {
+        string sql = @"
+        SELECT
+        keeps.*,
+        creator.*
+        FROM keeps
+        JOIN accounts creator ON creator.id = keeps.creatorId
+        WHERE keeps.creatorId = @ProfileId
+        ;";
+        List<Keep> keeps = _db.Query<Keep, Account, Keep>
+        (sql, (keeps, creator) => 
+        {
+            keeps.Creator = creator;
+            return keeps;
+        }, new{profileId}).ToList();
+        return keeps;
+    }
+
     internal void Remove(int keepId)
     {
         string sql = "DELETE FROM keeps WHERE id = @keepId LIMIT 1;";

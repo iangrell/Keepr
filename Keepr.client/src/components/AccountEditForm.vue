@@ -12,10 +12,6 @@
             <label for="coverImg" class="form-label text-dark">Cover Photo</label>
             <input v-model="editable.coverImg" type="url" class="form-control" id="coverImg">
         </div>
-        <div class="mb-3">
-            <label for="email" class="form-label text-dark">Email</label>
-            <input v-model="editable.email" type="text" class="form-control" id="email">
-        </div>
         <div class="modal-footer">
             <button type="Submit" class="btn btn-primary text-black" data-bs-dismiss="modal">
                 Edit Account

@@ -45,6 +45,7 @@ export default {
     setup() {
         const route = useRoute();
         const router = useRouter();
+        
         async function getVaultById() {
             try {
                 const vaultId = route.params.vaultId;

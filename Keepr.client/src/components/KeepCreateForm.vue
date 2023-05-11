@@ -2,15 +2,15 @@
     <form @submit.prevent="createKeep">
         <div class="mb-3">
             <label for="" class="form-label">Name</label>
-            <input v-model="editable.name" type="text" class="form-control" aria-describedby="helpId">
+            <input v-model="editable.name" type="text" class="form-control" aria-describedby="helpId" required minlength="1" maxlength="50">
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Description</label>
-            <input v-model="editable.description" type="text" class="form-control" aria-describedby="helpId">
+            <input v-model="editable.description" type="text" class="form-control" aria-describedby="helpId" required minlength="1" maxlength="500">
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Img Url</label>
-            <input v-model="editable.img" type="text" class="form-control" aria-describedby="helpId">
+            <input v-model="editable.img" type="text" class="form-control" aria-describedby="helpId" required minlength="1" maxlength="1000">
         </div>
         <div>
             <button class="btn btn-success">Submit</button>
@@ -31,8 +31,9 @@ const editable = ref({})
 
 async function createKeep() {
     try {
-        let newKeep = await keepsService.createKeep(editable.value)
-        Modal.getOrCreateInstance('#create-keep').hide()
+        await keepsService.createKeep(editable.value)
+        Modal.getOrCreateInstance('#keepCreateFormModal').hide()
+        editable.value = {}
     } catch (error) {
         Pop.error(error)
     }

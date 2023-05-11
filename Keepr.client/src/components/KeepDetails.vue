@@ -9,7 +9,6 @@
                     <div class="col-12">
                         <i class="mdi mdi-eye-outline">{{ activeKeep?.views }}</i>
                         <i class="mdi mdi-alpha-k-box-outline">{{ activeKeep?.kept }}</i>
-                        <!--FIXME the Id of the activeKeep needs to be passed as a argument inside of this function  -->
                         <button class="btn btn-danger" @click="deleteKeep(activeKeep?.id)">delete keep</button>
                     </div>
                     <div class="col-12">
@@ -17,7 +16,15 @@
                         <p>{{ activeKeep?.description }}</p>
                     </div>
                     <div class="col-12 d-flex justify-content-between">
-                        <button class="btn btn-secondary">Save</button>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        My Vaults
+                                    </button>
+                            <ul class="dropdown-menu">
+                                <li v-for="v in vaults" class="dropdown-item" href="#" @click="getVaultById(v.id)">{{ v.name }}</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-secondary" @click="createVaultKeep(activeKeep?.id)">Save</button>
                         <img class="profile-pic selectable" :src="activeKeep?.creator?.picture" :alt="activeKeep?.name">
                         <p>{{ activeKeep?.creator?.name }}</p>
                     </div>
@@ -35,12 +42,15 @@ import Pop from '../utils/Pop.js';
 import { logger } from '../utils/Logger.js';
 import { keepsService } from '../services/KeepsService.js';
 import { Modal } from 'bootstrap';
+import { vaultsService } from '../services/VaultsService.js';
+import { vaultKeepsService } from '../services/VaultKeepsService.js';
 export default {
     setup() {
         return {
             activeKeep: computed(() => AppState.activeKeep),
+            vaults: computed(() => AppState.myVaults),
+            activeVault: computed(() => AppState.activeVault),
 
-            // TODO create the delete function make sure that we're passing down the activeKeep Id -> now the activeKeep Id is a parameter 
             async deleteKeep(keepId) {
                 try {
                     logger.log('keepId', keepId)
@@ -48,6 +58,26 @@ export default {
                         await keepsService.deleteKeep(keepId)
                     }
                     Modal.getOrCreateInstance('#keep-details').hide()
+                } catch (error) {
+                    Pop.error(error)
+                }
+            },
+
+            async getVaultById(vaultId) {
+                try {
+                    await vaultsService.getVaultById(vaultId)
+                } catch (error) {
+                    Pop.error(error)
+                }
+            },
+
+            async createVaultKeep(keepId) {
+                try {
+                    const vaultId = this.activeVault.id
+                    logger.log("vaultId :", vaultId,", keepId :", keepId )
+                    const vaultKeepData = {vaultId, keepId}
+                    logger.log('vaultKeepData', vaultKeepData)
+                    await vaultKeepsService.createVaultKeep(vaultKeepData)
                 } catch (error) {
                     Pop.error(error)
                 }

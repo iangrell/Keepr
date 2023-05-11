@@ -13,6 +13,12 @@ class VaultKeepsService {
         logger.log('[GETTING KEPTKEEPS]', res.data)
         AppState.keptKeeps = res.data.map(k => new KeptKeep(k))
     }
+
+    async createVaultKeep(vaultKeepData) {
+        const res = await api.post('api/vaultKeeps', vaultKeepData)
+        logger.log('[Creating vaultKeep]', res.data)
+    }
+    
 }
 
 export const vaultKeepsService = new VaultKeepsService()

@@ -2,11 +2,17 @@
     <form @submit.prevent="createVault">
         <div class="mb-3">
             <label for="" class="form-label">Name</label>
-            <input v-model="editable.name" type="text" class="form-control" aria-describedby="helpId">
+            <input v-model="editable.name" type="text" class="form-control" aria-describedby="helpId" required minlength="1" maxlength="50">
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Img Url</label>
-            <input v-model="editable.img" type="text" class="form-control" aria-describedby="helpId">
+            <input v-model="editable.img" type="text" class="form-control" aria-describedby="helpId" required minlength="1" maxlength="1000">
+        </div>
+        <div class="mb-3">
+            <div class="form-check">
+                <input v-model="editable.isPrivate" class="form-check-input" type="checkbox" value="" id="">
+                <label class="form-check-label" for="">Is this Vault private?</label>
+            </div>
         </div>
         <div>
             <button class="btn btn-success">Submit</button>
@@ -31,7 +37,8 @@ export default {
         async createVault() {
             try {
                 await vaultsService.createVault(editable.value)
-                Modal.getOrCreateInstance('#create-vault').hide()
+                Modal.getOrCreateInstance('#vaultCreateFormModal').hide()
+                editable.value = {}
             } catch (error) {
                 Pop.error(error)
             }

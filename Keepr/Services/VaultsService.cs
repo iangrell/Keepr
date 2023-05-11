@@ -46,6 +46,7 @@ public class VaultsService
 
     internal Vault GetOne(int vaultId, string userId)
     {
+        
         Vault vault = _repo.GetOne(vaultId);
         if (vault == null)
         {
@@ -58,6 +59,14 @@ public class VaultsService
         }
 
         return vault;
+    }
+
+    internal List<Vault> GetProfileVaults(string profileId)
+    {
+        // TODO filter out private vaults if not the owner
+        //REFRENCE help reviews get all restaurants
+        List<Vault> vaults = _repo.GetProfileVaults(profileId);
+        return vaults;
     }
 
     internal string Remove(int vaultId, string userId)

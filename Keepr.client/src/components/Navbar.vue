@@ -35,7 +35,7 @@
 
   <Modal id="vaultCreateFormModal" class="modal">
     <template #header>
-      <h5 class="text-dark">Add your Keep</h5>
+      <h5 class="text-dark">Create Vault</h5>
     </template>
     <template #modalBody>
       <VaultCreateForm />

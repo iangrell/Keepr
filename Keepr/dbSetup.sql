@@ -49,9 +49,9 @@ CREATE TABLE
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
         name VARCHAR(255) NOT NULL,
-        description VARCHAR(1020) NOT NULL,
+        description VARCHAR(1020),
         img VARCHAR(1020) NOT NULL,
-        isPrivate BOOLEAN NOT NULL DEFAULT FALSE,
+        isPrivate BOOLEAN NOT NULL DEFAULT false,
         creatorId VARCHAR(255) NOT NULL,
         FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8mb4 COMMENT '';

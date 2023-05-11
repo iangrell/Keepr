@@ -1,11 +1,11 @@
 <template>
     <div class="row selectable elevation-5 p-2 m-1">
         <div class="col-12 mb-1">
-            <img :src="keep.img" :alt="keep.name">
+            <img :src="keep?.img" :alt="keep?.name">
         </div>
         <div class="col-12 d-flex justify-content-between">
-            <h3>{{ keep.name }}</h3>
-            <img class="profile-pic" :src="keep.creator.picture" :alt="keep.name">
+            <h3>{{ keep?.name }}</h3>
+            <img class="profile-pic" :src="keep?.creator?.picture" :alt="keep?.name">
         </div>
     </div>
 </template>
