@@ -10,6 +10,8 @@
     </div>
 </template>
 
+<!-- NOTE we should be bringing in our keep details modal here -->
+
 
 <script>
 import { AppState } from '../AppState';
@@ -17,18 +19,19 @@ import { computed, reactive, onMounted } from 'vue';
 import { Keep } from '../models/Keep.js';
 export default {
     props: {
-        keep: { type: Keep, required: true}
+        keep: { type: Keep, required: true }
     },
 
-    setup(){
-    return {  }
+    setup() {
+        return {
+            // NOTE this is where the keep setActive or getById should live
+        }
     }
 };
 </script>
 
 
 <style lang="scss" scoped>
-
 img {
     height: 30vh;
     width: 100%;
@@ -41,5 +44,4 @@ img {
     width: 4vh;
     border-radius: 50%;
 }
-
 </style>

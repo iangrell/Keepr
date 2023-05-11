@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <Modal id="keep-details" size="xl">
+  <Modal id="keep-details" class="modal-xl">
 
     <template #header>
       <h5 class="text-dark"></h5>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watchEffect } from 'vue';
 import Pop from '../utils/Pop.js';
 import { keepsService } from '../services/KeepsService.js'
 import { AppState } from '../AppState.js';
@@ -44,6 +44,10 @@ export default {
         Pop.error(error);
       }
     }
+
+    watchEffect(() => {
+      getKeeps();
+    })
 
     return {
       keeps: computed(() => AppState.keeps),

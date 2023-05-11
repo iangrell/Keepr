@@ -5,20 +5,14 @@
         <button class="btn btn-outline-dark rounded-pill">Home</button>
       </div>
     </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
-        <button data-bs-toggle="modal" data-bs-target="#keepCreateFormModal" class="btn">Create</button>
+        <button data-bs-toggle="modal" data-bs-target="#keepCreateFormModal" class="btn">Create Keep</button>
+        <button data-bs-toggle="modal" data-bs-target="#vaultCreateFormModal" class="btn">Create Vault</button>
         <!-- <li>
           <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
             About
@@ -30,17 +24,23 @@
     </div>
   </nav>
 
-<Modal id="keepCreateFormModal" size="modal-xl">
+  <Modal id="keepCreateFormModal" class="modal">
+    <template #header>
+      <h5 class="text-dark">Add your Keep</h5>
+    </template>
+    <template #modalBody>
+      <KeepCreateForm />
+    </template>
+  </Modal>
 
-<template #header>
-    <h5 class="text-dark">Add your Keep</h5>
-</template>
-
-<template #modalBody>
-    <KeepCreateForm />
-</template>
-
-</Modal>
+  <Modal id="vaultCreateFormModal" class="modal">
+    <template #header>
+      <h5 class="text-dark">Add your Keep</h5>
+    </template>
+    <template #modalBody>
+      <VaultCreateForm />
+    </template>
+  </Modal>
 </template>
 
 <script>
@@ -73,5 +73,4 @@ a:hover {
     height: 64px;
   }
 }
-
 </style>

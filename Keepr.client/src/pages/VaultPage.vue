@@ -5,6 +5,7 @@
                 <img class="img-fluid" :src="vault?.img" :alt="vault?.name">
                 <h1>{{ vault?.name }}</h1>
                 <p>by {{ vault?.creator.name }}</p>
+                <button class="btn btn-danger" @click="deleteVault(vault?.id)">delete vault</button>
             </div>
             <div class="row">
                 <div v-for="k in keptKeeps" :key="k.id" @click="getKeepById(k.id)" data-bs-toggle="modal" data-bs-target="#keptKeep-details" class="col-6 col-md-3">
@@ -39,6 +40,7 @@ import { vaultKeepsService } from '../services/VaultKeepsService.js'
 import KeptKeepCard from '../components/KeptKeepCard.vue';
 import KeptKeepDetails from '../components/KeptKeepDetails.vue';
 import { keepsService } from '../services/KeepsService.js';
+import { Modal } from 'bootstrap';
 export default {
     setup() {
         const route = useRoute();
@@ -84,6 +86,17 @@ export default {
                 await keepsService.getKeepById(keepId)
                 } catch (error) {
                 Pop.error(error)
+                }
+            },
+
+            async deleteVault(vaultId) {
+                try {
+                    if (await Pop.confirm('Do you want to delete this Vault?')) {
+                        await vaultsService.deleteVault(vaultId)
+                    }
+                    router.push({ name: 'Account'})
+                } catch (error) {
+                    Pop.error(error)
                 }
             }
         };
