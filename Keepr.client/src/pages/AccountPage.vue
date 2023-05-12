@@ -4,7 +4,7 @@
     <img class="rounded" :src="account.picture" alt="" />
     <button data-bs-toggle="modal" data-bs-target="#AccountEditForm" class="btn btn-secondary">edit</button>
     <h1>{{ account.name }}</h1>
-    <p>5 Vaults | 21 Keeps</p>
+    <!-- <p>5 Vaults | 21 Keeps</p> -->
   </div>
   <section class="row justify-content-center">
     <div class="col-md-8">

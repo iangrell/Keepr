@@ -3,7 +3,7 @@
         <img class="rounded" :src="profile.coverImg" alt="" />
         <img class="rounded" :src="profile.picture" alt="" />
         <h1>{{ profile.name }}</h1>
-        <p>5 Vaults | 21 Keeps</p>
+        <!-- <p>5 Vaults | 21 Keeps</p> -->
     </div>
     <section class="row justify-content-center">
         <div class="col-md-8">

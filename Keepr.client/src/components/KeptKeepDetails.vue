@@ -15,7 +15,7 @@
                         <p>{{ activeKeep?.description }}</p>
                     </div>
                     <div class="col-12 d-flex justify-content-between">
-                        <img class="profile-pic selectable" :src="activeKeep?.creator?.picture" :alt="activeKeep?.name">
+                        <img class="profile-pic" :src="activeKeep?.creator?.picture" :alt="activeKeep?.name">
                         <p>{{ activeKeep?.creator?.name }}</p>
                     </div>
                 </div>

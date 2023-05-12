@@ -25,7 +25,7 @@
                             </ul>
                         </div>
                         <button class="btn btn-secondary" @click="createVaultKeep(activeKeep?.id)">Save</button>
-                        <img class="profile-pic selectable" :src="activeKeep?.creator?.picture" :alt="activeKeep?.name">
+                        <img class="profile-pic" :src="activeKeep?.creator?.picture" :alt="activeKeep?.name">
                         <p>{{ activeKeep?.creator?.name }}</p>
                     </div>
                 </div>
@@ -45,6 +45,7 @@ import { Modal } from 'bootstrap';
 import { vaultsService } from '../services/VaultsService.js';
 import { vaultKeepsService } from '../services/VaultKeepsService.js';
 export default {
+    
     setup() {
         return {
             activeKeep: computed(() => AppState.activeKeep),
