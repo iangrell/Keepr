@@ -31,8 +31,7 @@ public class VaultKeepsService
 
     internal List<KeptKeep> GetVaultKeepsForVault(int vaultId, string userId)
     {
-        // FIXME we need this next line, to verify the identity of the user getting the keeps
-        // _vaultsService.GetOne(vaultId, userId); 
+        _vaultsService.GetOne(vaultId, userId); 
         List<KeptKeep> keeps = _repo.GetVaultKeepsForVault(vaultId);
         return keeps;
     }

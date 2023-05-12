@@ -1,10 +1,11 @@
 <template>
-    <div class="row selectable elevation-5 p-2 m-1">
+    <div class="row elevation-5 p-2 m-1">
         <div class="col-12 mb-1">
-            <img :src="keptKeep?.img" :alt="keptKeep?.name">
+            <img  class="selectable img-fluid" data-bs-toggle="modal" data-bs-target="#keptKeep-details" :src="keptKeep?.img" :alt="keptKeep?.name">
         </div>
         <div class="col-12 d-flex justify-content-between">
             <h3>{{ keptKeep?.name }}</h3>
+            <button class="btn btn-secondary btn-sm" @click="removeVaultKeep(keptKeep?.vaultKeepId)">Remove</button>
         </div>
     </div>
 </template>
@@ -14,13 +15,26 @@
 import { AppState } from '../AppState';
 import { computed, reactive, onMounted } from 'vue';
 import { KeptKeep } from '../models/KeptKeep.js';
+import Pop from '../utils/Pop.js';
+import { vaultKeepsService } from '../services/VaultKeepsService.js';
 export default {
     props: {
         keptKeep: { type: KeptKeep, required: true}
     },
 
     setup(){
-    return {  }
+    return { 
+
+        async removeVaultKeep(vaultKeepId) {
+            try {
+                if (await Pop.confirm('Do you want to remove this Keep from this Vault?')) {
+                    await vaultKeepsService.removeVaultKeep(vaultKeepId)
+                }
+            } catch (error) {
+                Pop.error(error)
+            }
+        }
+    }
     }
 };
 </script>

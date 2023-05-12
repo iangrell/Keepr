@@ -13,12 +13,14 @@ namespace Keepr.Controllers;
         private readonly ProfilesService _profilesService;
         private readonly KeepsService _keepsService;
         private readonly VaultsService _vaultsService;
+        private readonly Auth0Provider _auth;
 
-    public ProfilesController(ProfilesService profilesService, KeepsService keepsService, VaultsService vaultsService)
+    public ProfilesController(ProfilesService profilesService, KeepsService keepsService, VaultsService vaultsService, Auth0Provider auth)
     {
         _profilesService = profilesService;
         _keepsService = keepsService;
         _vaultsService = vaultsService;
+        _auth = auth;
     }
 
     [HttpGet("{profileId}")]
@@ -50,11 +52,12 @@ namespace Keepr.Controllers;
         }
 
         [HttpGet("{profileId}/vaults")]
-        public ActionResult<List<Vault>> GetProfileVaults(string profileId)
+        public async Task<ActionResult<List<Vault>>> GetProfileVaults(string profileId)
         {
             try
             {
-                List<Vault> vaults = _vaultsService.GetProfileVaults(profileId);
+                Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+                List<Vault> vaults = _vaultsService.GetProfileVaults(profileId, userInfo?.Id);
                 return Ok(vaults);
             }
             catch (Exception e)

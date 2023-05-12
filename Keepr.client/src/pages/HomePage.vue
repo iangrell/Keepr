@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div v-for="k in keeps" :key="k.id" @click="getKeepById(k.id)" data-bs-toggle="modal" data-bs-target="#keep-details"
+      <div v-for="k in keeps" :key="k.id" @click="getKeepById(k.id)" 
         class=" col-6 col-md-3 mb-3">
         <KeepCard :keep="k" />
       </div>

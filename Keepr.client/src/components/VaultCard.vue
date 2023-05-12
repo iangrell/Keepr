@@ -1,15 +1,15 @@
 <template>
-    <router-link :to="{ name: 'Vault', params: { vaultId: vault.id }}">
-        <div class="row selectable elevation-5 p-2 m-1">
-            <div class="col-12 mb-1">
-                <img :src="vault.img" :alt="vault.name">
-            </div>
-            <div class="col-12 d-flex justify-content-between">
-                <h3 class="text-dark">{{ vault.name }}</h3>
-                <i v-if="vault.isPrivate != false" class="mdi mdi-lock text-dark"></i>
-            </div>
+    <div class="row elevation-5 p-2 m-1">
+        <div class="col-12 mb-1">
+            <router-link :to="{ name: 'Vault', params: { vaultId: vault.id }}">
+                <img class="selectable" :src="vault.img" :alt="vault.name">
+            </router-link>
         </div>
-    </router-link>
+        <div class="col-12 d-flex justify-content-between">
+            <h3 class="text-dark">{{ vault.name }}</h3>
+            <i v-if="vault.isPrivate != false" class="mdi mdi-lock text-dark"></i>
+        </div>
+    </div>
 </template>
 
 

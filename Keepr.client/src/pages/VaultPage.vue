@@ -8,7 +8,7 @@
                 <button class="btn btn-danger" @click="deleteVault(vault?.id)">delete vault</button>
             </div>
             <div class="row">
-                <div v-for="k in keptKeeps" :key="k.id" @click="getKeepById(k.id)" data-bs-toggle="modal" data-bs-target="#keptKeep-details" class="col-6 col-md-3">
+                <div v-for="k in keptKeeps" :key="k.id" @click="getKeepById(k.id)" class="col-6 col-md-3">
                     <KeptKeepCard :keptKeep="k" />
                 </div>
             </div>
@@ -45,7 +45,7 @@ export default {
     setup() {
         const route = useRoute();
         const router = useRouter();
-        
+
         async function getVaultById() {
             try {
                 const vaultId = route.params.vaultId;

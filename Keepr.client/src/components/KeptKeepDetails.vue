@@ -15,7 +15,6 @@
                         <p>{{ activeKeep?.description }}</p>
                     </div>
                     <div class="col-12 d-flex justify-content-between">
-                        <button class="btn btn-secondary">Remove</button>
                         <img class="profile-pic selectable" :src="activeKeep?.creator?.picture" :alt="activeKeep?.name">
                         <p>{{ activeKeep?.creator?.name }}</p>
                     </div>

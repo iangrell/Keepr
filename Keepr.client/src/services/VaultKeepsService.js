@@ -18,6 +18,12 @@ class VaultKeepsService {
         const res = await api.post('api/vaultKeeps', vaultKeepData)
         logger.log('[Creating vaultKeep]', res.data)
     }
+
+    async removeVaultKeep(vaultKeepId) {
+        const res = await api.delete(`api/vaultkeeps/${vaultKeepId}`)
+        logger.log('[DELETING VAULTKEEP]', res.data)
+        
+    }
     
 }
 

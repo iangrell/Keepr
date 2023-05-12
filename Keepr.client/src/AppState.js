@@ -19,4 +19,6 @@ export const AppState = reactive({
   keptKeeps: [],
   /** @type {import('./models/KeptKeep.js').KeptKeep|null} */
   activeKeptKeep: null,
+  /** @type {import('./models/Profile.js').Profile|null} */
+  activeProfile: null,
 })
