@@ -14,10 +14,13 @@ public class KeepsRepository
         string sql = @"
         SELECT
         keeps.*,
+        COUNT(vaultKeeps.id) AS kept,
         creator.*
         FROM keeps
         JOIN accounts creator ON creator.id = keeps.creatorId
-        WHERE keeps.id = @keepId 
+        LEFT JOIN vaultKeeps ON vaultKeeps.keepId = keeps.id
+        WHERE keeps.id = @keepId
+        GROUP BY (keeps.id)
         ;";
         Keep keep = _db.Query<Keep, Account, Keep>(sql, (keep, creator) =>
         {
@@ -57,7 +60,10 @@ public class KeepsRepository
         SET
         name = @Name,
         description = @Description,
-        img = @Img
+        img = @Img,
+        views = @Views,
+        kept = @Kept
+        WHERE id = @Id
         ;";
 
         _db.Execute(sql, originalKeep);

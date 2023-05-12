@@ -39,6 +39,8 @@ public class KeepsService
     {
         Keep keep = _repo.GetOne(keepId);
         if (keep == null) throw new Exception("No Keep found with that ID.");
+        keep.Views++;
+        _repo.EditKeep(keep);
         return keep;
     }
 

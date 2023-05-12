@@ -21,7 +21,7 @@ import { Profile } from '../models/Account.js';
 export default {
     props: {
         keep: { type: Keep, required: true },
-        profile: { type: Profile, required: true}
+        profile: { type: Profile }
     },
 
     setup() {
