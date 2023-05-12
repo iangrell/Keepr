@@ -15,7 +15,14 @@ public class VaultKeepsService
     {
         // TODO WHO owns the vault?
         //get vault, and check if the user, is the creator of it
-        VaultKeep vaultKeep = _repo.CreateVaultKeep(vaultKeepData);
+        Vault vault = _vaultsService.GetOne(vaultKeepData.VaultId, vaultKeepData.CreatorId);
+        if (vaultKeepData.CreatorId != vault.CreatorId)
+        {
+            throw new Exception("Something went wrong.");
+        }
+        int id = _repo.CreateVaultKeep(vaultKeepData);
+        vaultKeepData.Id = id;
+        VaultKeep vaultKeep = this.GetOne(id);
         return vaultKeep;
     }
 
@@ -31,7 +38,7 @@ public class VaultKeepsService
 
     internal List<KeptKeep> GetVaultKeepsForVault(int vaultId, string userId)
     {
-        _vaultsService.GetOne(vaultId, userId); 
+        _vaultsService.GetOne(vaultId, userId);
         List<KeptKeep> keeps = _repo.GetVaultKeepsForVault(vaultId);
         return keeps;
     }

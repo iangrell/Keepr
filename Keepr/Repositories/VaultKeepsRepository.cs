@@ -9,7 +9,7 @@ public class VaultKeepsRepository
         _db = db;
     }
 
-    internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
+    internal int CreateVaultKeep(VaultKeep vaultKeepData)
     {
         string sql = @"
         INSERT INTO
@@ -29,7 +29,7 @@ public class VaultKeepsRepository
         vaultKeepData.Id = id;
         vaultKeepData.CreatedAt = DateTime.Now;
         vaultKeepData.UpdatedAt = DateTime.Now;
-        return vaultKeepData;
+        return id;
     }
 
     internal VaultKeep GetOne(int id)

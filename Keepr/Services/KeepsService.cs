@@ -12,13 +12,18 @@ public class KeepsService
     internal Keep CreateKeep(Keep keepData)
     {
         int keepId = _repo.CreateKeep(keepData);
-        Keep keep = this.GetOne(keepId);
+        Keep keep = this.GetOne(keepId, keepData.CreatorId);
         return keep;
     }
 
     internal Keep EditKeep(Keep keepData, int keepId)
     {
-        Keep originalKeep = this.GetOne(keepId);
+        Keep originalKeep = this.GetOne(keepData.Id, keepData.CreatorId);
+
+        if (originalKeep.CreatorId != keepData.CreatorId)
+        {
+            throw new Exception("Something went wrong.");
+        }
 
         originalKeep.Name = keepData.Name ?? originalKeep.Name;
         originalKeep.Description = keepData.Description ?? originalKeep.Description;
@@ -35,7 +40,7 @@ public class KeepsService
         return keeps;
     }
 
-    internal Keep GetOne(int keepId)
+    internal Keep GetOne(int keepId, string userId)
     {
         Keep keep = _repo.GetOne(keepId);
         if (keep == null) throw new Exception("No Keep found with that ID.");
@@ -52,7 +57,7 @@ public class KeepsService
 
     internal string Remove(int keepId, string userId)
     {
-        Keep keep = GetOne(keepId);
+        Keep keep = GetOne(keepId, userId);
         if (keep.CreatorId != userId)
         {
             throw new Exception("Something went wrong.");
