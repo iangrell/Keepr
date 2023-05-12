@@ -68,9 +68,30 @@ export default {
                 }
                 
             }
+
+            async function getProfileVaults() {
+                try {
+                    const profileId = route.params.profileId;
+                    await profilesService.getProfileVaults(profileId)
+                } catch (error) {
+                    Pop.error(error)
+                }
+            }
+
+            async function getProfileKeeps() {
+                try {
+                    const profileId = route.params.profileId;
+                    await profilesService.getProfileKeeps(profileId)
+                } catch (error) {
+                    Pop.error(error)
+                }
+            }
+
             watchEffect(() => {
                 route.params.profileId;
                 getProfile();
+                getProfileVaults();
+                getProfileKeeps();
         
         });
 
